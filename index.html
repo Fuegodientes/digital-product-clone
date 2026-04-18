@@ -268,6 +268,7 @@
       height: 520px;
       animation: fadeIn 0.8s ease both;
       animation-delay: 0.3s;
+      perspective: 900px;
     }
     .pcard {
       position: absolute;
@@ -334,14 +335,13 @@
     .pcard-5 .pcard-thumb { background: #ffd6cc; }
     /* hover: pause float and nudge */
     .pcard {
-      transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.5s ease;
       will-change: transform;
+      transform-style: preserve-3d;
+      cursor: default;
     }
-    .pcard:hover {
-      animation-play-state: paused;
-      transform: translateY(-14px) scale(1.05) rotate(0deg) !important;
-      box-shadow: 0 24px 48px rgba(0,0,0,0.11);
+    .pcard.is-hovered {
       z-index: 10;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.13);
     }
 
     /* ─── RESPONSIVE HERO ─── */
@@ -1310,6 +1310,63 @@
     });
   }, { threshold: 0.1 });
   els.forEach(el => io.observe(el));
+
+  // ── Card tilt on mouse move ──
+  document.querySelectorAll('.pcard').forEach(card => {
+    let raf = null;
+    let isOver = false;
+    let targetRx = 0, targetRy = 0, targetTy = 0;
+    let currentRx = 0, currentRy = 0, currentTy = 0;
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function tick() {
+      currentRx = lerp(currentRx, targetRx, 0.09);
+      currentRy = lerp(currentRy, targetRy, 0.09);
+      currentTy = lerp(currentTy, targetTy, 0.09);
+
+      card.style.transform = `translateY(${currentTy}px) rotateX(${currentRx}deg) rotateY(${currentRy}deg) scale(${isOver ? 1.04 : 1})`;
+
+      if (isOver || Math.abs(currentRx) > 0.05 || Math.abs(currentRy) > 0.05 || Math.abs(currentTy) > 0.05) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        card.style.transform = '';
+        raf = null;
+      }
+    }
+
+    card.addEventListener('mouseenter', () => {
+      isOver = true;
+      card.classList.add('is-hovered');
+      card.style.animationPlayState = 'paused';
+      targetTy = -14;
+      if (!raf) raf = requestAnimationFrame(tick);
+    });
+
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width  - 0.5;  // -0.5 → 0.5
+      const y = (e.clientY - rect.top)  / rect.height - 0.5;
+      targetRy =  x * 18;
+      targetRx = -y * 14;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      isOver = false;
+      card.classList.remove('is-hovered');
+      targetRx = 0;
+      targetRy = 0;
+      targetTy = 0;
+      // resume float after lerp settles
+      setTimeout(() => {
+        if (!isOver) {
+          card.style.animationPlayState = '';
+          card.style.transform = '';
+          raf = null;
+        }
+      }, 600);
+    });
+  });
 
   // FAQ accordion
   document.querySelectorAll('.faq-btn').forEach(btn => {
