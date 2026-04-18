@@ -128,18 +128,56 @@
     }
     .btn-ghost:hover { background: rgba(0,0,0,0.06); }
 
+    /* ─── HERO ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes floatA {
+      0%, 100% { transform: translateY(0px) rotate(-3deg); }
+      50%       { transform: translateY(-14px) rotate(-3deg); }
+    }
+    @keyframes floatB {
+      0%, 100% { transform: translateY(-8px) rotate(2deg); }
+      50%       { transform: translateY(8px) rotate(2deg); }
+    }
+    @keyframes floatC {
+      0%, 100% { transform: translateY(0px) rotate(1deg); }
+      50%       { transform: translateY(-10px) rotate(1deg); }
+    }
+    @keyframes floatD {
+      0%, 100% { transform: translateY(-4px) rotate(-1.5deg); }
+      50%       { transform: translateY(10px) rotate(-1.5deg); }
+    }
+    @keyframes floatE {
+      0%, 100% { transform: translateY(0px) rotate(2.5deg); }
+      50%       { transform: translateY(-8px) rotate(2.5deg); }
+    }
+    @keyframes salePop {
+      0%,100% { transform: scale(1); }
+      50%      { transform: scale(1.04); }
+    }
+
     /* ─── HERO ─── */
-    .hero {
-      max-width: 900px;
+    .hero-wrap {
+      max-width: 1200px;
       margin: 0 auto;
       padding: 96px 32px 80px;
-      text-align: center;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
     }
+    .hero-content { text-align: left; }
     .hero-eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1.5px;
@@ -147,40 +185,44 @@
       border: var(--border);
       border-radius: var(--radius);
       padding: 5px 14px;
-      margin-bottom: 36px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.55s ease both;
+      animation-delay: 0.05s;
     }
-    .hero h1 {
+    .hero-content h1 {
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-size: clamp(2.8rem, 5vw, 5.5rem);
       font-weight: 400;
       line-height: 1.0;
-      letter-spacing: -3px;
-      margin-bottom: 28px;
+      letter-spacing: -2.5px;
+      margin-bottom: 24px;
+      animation: fadeUp 0.6s ease both;
+      animation-delay: 0.18s;
     }
-    .hero h1 em {
+    .hero-content h1 em {
       font-style: italic;
       color: var(--muted);
     }
-    .hero p {
-      font-size: clamp(1rem, 2vw, 1.2rem);
+    .hero-content p {
+      font-size: 1.1rem;
       color: var(--muted);
-      max-width: 540px;
-      margin: 0 auto 44px;
-      line-height: 1.7;
+      max-width: 440px;
+      margin-bottom: 40px;
+      line-height: 1.75;
+      animation: fadeUp 0.6s ease both;
+      animation-delay: 0.32s;
     }
     .hero-actions {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 32px;
+      gap: 14px;
       flex-wrap: wrap;
-      padding: 8px 20px 28px;
       overflow: visible;
+      padding-bottom: 12px;
+      animation: fadeUp 0.6s ease both;
+      animation-delay: 0.46s;
     }
-    .hero-actions .btn-primary {
-      padding: 14px 28px;
-      font-size: 1rem;
-    }
+    .hero-actions .btn-primary { padding: 14px 28px; font-size: 1rem; }
     .search-bar {
       display: flex;
       align-items: center;
@@ -191,29 +233,109 @@
       height: 48px;
     }
     .search-bar input {
-      border: none;
-      outline: none;
-      background: transparent;
+      border: none; outline: none; background: transparent;
       padding: 0 16px;
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      width: 240px;
-      color: var(--black);
+      font-size: 0.9rem; width: 200px; color: var(--black);
     }
     .search-bar input::placeholder { color: #aaa; }
     .search-bar button {
-      height: 100%;
-      padding: 0 16px;
-      background: var(--cream);
-      border: none;
-      border-left: var(--border);
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      transition: background 0.2s ease;
+      height: 100%; padding: 0 16px;
+      background: var(--cream); border: none; border-left: var(--border);
+      cursor: pointer; font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem; font-weight: 700; transition: background 0.2s ease;
     }
     .search-bar button:hover { background: #e8e4dc; }
+
+    /* ─── HERO ILLUSTRATION ─── */
+    .hero-visual {
+      position: relative;
+      height: 520px;
+      animation: fadeIn 0.8s ease both;
+      animation-delay: 0.3s;
+    }
+    .pcard {
+      position: absolute;
+      width: 190px;
+      background: var(--white);
+      border: 1px solid #000;
+      border-radius: 14px;
+      padding: 18px 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .pcard-thumb {
+      width: 100%; height: 80px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+    }
+    .pcard-tag {
+      font-size: 0.65rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px;
+      color: var(--muted);
+    }
+    .pcard-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1rem; font-weight: 400;
+      letter-spacing: -0.3px; line-height: 1.2;
+      color: var(--black);
+    }
+    .pcard-footer {
+      display: flex; align-items: center;
+      justify-content: space-between; margin-top: 2px;
+    }
+    .pcard-price {
+      font-size: 1rem; font-weight: 800;
+      color: var(--black);
+    }
+    .pcard-btn {
+      font-size: 0.7rem; font-weight: 700;
+      padding: 5px 10px; border-radius: 6px;
+      background: var(--black); color: var(--white);
+      border: none; cursor: pointer;
+    }
+    /* sale badge */
+    .pcard-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 0.62rem; font-weight: 700;
+      background: #4ade80; border-radius: 99px;
+      padding: 2px 8px; color: #000;
+      animation: salePop 2s ease infinite;
+    }
+    /* individual card positions + floats */
+    .pcard-1 { top: 0;    left: 0%;   animation: floatA 5s ease-in-out infinite; }
+    .pcard-2 { top: 30px; right: 0;   animation: floatB 6s ease-in-out infinite; }
+    .pcard-3 { top: 210px; left: 12%; animation: floatC 4.5s ease-in-out infinite; }
+    .pcard-4 { top: 200px; right: 4%; animation: floatD 5.5s ease-in-out infinite; }
+    .pcard-5 { bottom: 0; left: 22%;  animation: floatE 5s ease-in-out infinite; }
+    /* card accent colors */
+    .pcard-1 .pcard-thumb { background: #ffe0f9; }
+    .pcard-2 .pcard-thumb { background: #f4d03f; }
+    .pcard-3 .pcard-thumb { background: #d0f0ff; }
+    .pcard-4 .pcard-thumb { background: #d4f4d4; }
+    .pcard-5 .pcard-thumb { background: #ffd6cc; }
+
+    /* ─── RESPONSIVE HERO ─── */
+    @media (max-width: 900px) {
+      .hero-wrap {
+        grid-template-columns: 1fr;
+        padding: 80px 24px 60px;
+        gap: 48px;
+      }
+      .hero-content { text-align: center; }
+      .hero-content p { max-width: 100%; }
+      .hero-actions { justify-content: center; }
+      .hero-visual { height: 340px; }
+      .pcard { width: 155px; }
+      .pcard-1 { top: 0; left: 2%; }
+      .pcard-2 { top: 10px; right: 2%; }
+      .pcard-3 { display: none; }
+      .pcard-4 { top: 180px; right: 6%; }
+      .pcard-5 { bottom: 0; left: 30%; }
+    }
 
     /* ─── SOCIAL PROOF TICKER ─── */
     .social-proof-bar {
@@ -692,10 +814,10 @@
       .footer-copy { justify-self: center; }
     }
     @media (max-width: 640px) {
-      .hero { padding: 72px 20px 60px; }
+      .hero-wrap { padding: 72px 20px 60px; }
       .section { padding: 72px 20px; }
-      .hero-actions { flex-direction: column; }
-      .search-bar input { width: 180px; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .search-bar input { width: 160px; }
       .proof-stats { gap: 28px; }
       footer { padding: 32px 20px; }
     }
@@ -721,15 +843,76 @@
 </nav>
 
 <!-- ─── HERO ─── -->
-<section class="hero">
-  <div class="hero-eyebrow">Free to start · No monthly fees</div>
-  <h1>Go from<br><em>idea</em> to income.</h1>
-  <p>FlowOS is the simplest way for freelancers and founders to sell digital products, courses, and memberships — and actually get paid.</p>
-  <div class="hero-actions">
-    <a href="#" class="btn-primary">Start selling for free</a>
-    <div class="search-bar">
-      <input type="text" placeholder="Search products..." aria-label="Search products" />
-      <button type="button">Search</button>
+<section>
+  <div class="hero-wrap">
+
+    <!-- Left: copy -->
+    <div class="hero-content">
+      <div class="hero-eyebrow">Free to start · No monthly fees</div>
+      <h1>Go from<br><em>idea</em> to<br>income.</h1>
+      <p>FlowOS is the simplest way for freelancers and founders to sell digital products, courses, and memberships — and actually get paid.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">Start selling for free</a>
+        <div class="search-bar">
+          <input type="text" placeholder="Search products..." aria-label="Search products" />
+          <button type="button">Search</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: floating product cards illustration -->
+    <div class="hero-visual" aria-hidden="true">
+
+      <div class="pcard pcard-1">
+        <div class="pcard-thumb">📋</div>
+        <div class="pcard-tag">Notion Template</div>
+        <div class="pcard-title">Freelancer OS 2.0</div>
+        <div class="pcard-footer">
+          <span class="pcard-price">$49</span>
+          <span class="pcard-badge">🔥 Bestseller</span>
+        </div>
+      </div>
+
+      <div class="pcard pcard-2">
+        <div class="pcard-thumb">✍️</div>
+        <div class="pcard-tag">eBook</div>
+        <div class="pcard-title">6-Figure Writing System</div>
+        <div class="pcard-footer">
+          <span class="pcard-price">$29</span>
+          <button class="pcard-btn">Buy</button>
+        </div>
+      </div>
+
+      <div class="pcard pcard-3">
+        <div class="pcard-thumb">🎨</div>
+        <div class="pcard-tag">Course</div>
+        <div class="pcard-title">Design Fundamentals</div>
+        <div class="pcard-footer">
+          <span class="pcard-price">$149</span>
+          <button class="pcard-btn">Buy</button>
+        </div>
+      </div>
+
+      <div class="pcard pcard-4">
+        <div class="pcard-thumb">📸</div>
+        <div class="pcard-tag">Photography</div>
+        <div class="pcard-title">Preset Pack Vol. 3</div>
+        <div class="pcard-footer">
+          <span class="pcard-price">$39</span>
+          <span class="pcard-badge">✨ New</span>
+        </div>
+      </div>
+
+      <div class="pcard pcard-5">
+        <div class="pcard-thumb">💬</div>
+        <div class="pcard-tag">Coaching</div>
+        <div class="pcard-title">1:1 Strategy Call</div>
+        <div class="pcard-footer">
+          <span class="pcard-price">$250</span>
+          <button class="pcard-btn">Book</button>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
