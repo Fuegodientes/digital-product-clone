@@ -15,7 +15,7 @@
       --black: #000000;
       --white: #ffffff;
       --pink: #ff90e8;
-      --border: 2px solid #000;
+      --border: 1px solid #000;
       --radius: 8px;
       --muted: #555;
     }
@@ -39,6 +39,7 @@
       z-index: 100;
       background: var(--cream);
       border-bottom: var(--border);
+      overflow: visible;
     }
     .nav-inner {
       max-width: 1200px;
@@ -74,6 +75,8 @@
       align-items: center;
       gap: 10px;
       justify-self: end;
+      overflow: visible;
+      padding: 4px 0;
     }
     .btn {
       display: inline-flex;
@@ -86,36 +89,62 @@
       font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
-      transition: none;
       border: var(--border);
       line-height: 1;
-      position: relative;
-      z-index: 1;
       text-align: center;
+      white-space: nowrap;
     }
+
+    /* ── Solid black button with Gumroad stacked-card hover ── */
     .btn-solid {
       background: var(--black);
       color: var(--white);
+      position: relative;
+      z-index: 1;
+      /* default: button already lifted off the layers */
+      transform: translate(-4px, -4px);
+      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    /* stacked-card layers — hidden behind button by default, reveal on hover */
-    .btn-solid::before,
+    /* yellow layer — always visible offset behind */
+    .btn-solid::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      border: 1px solid var(--black);
+      background: #f5e642;
+      z-index: -1;
+      /* fixed in place regardless of button movement */
+      transform: translate(4px, 4px);
+      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    /* red layer — always visible, further behind */
     .btn-solid::after {
       content: '';
       position: absolute;
-      inset: 0;
+      inset: -1px;
       border-radius: inherit;
-      border: var(--border);
-      z-index: -1;
-      transition: transform 0.15s ease;
-      transform: translate(0, 0);
+      border: 1px solid var(--black);
+      background: #c0392b;
+      z-index: -2;
+      transform: translate(8px, 8px);
+      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .btn-solid::before { background: #f0d000; }
-    .btn-solid::after  { background: #c0392b; }
-    .btn-solid:hover::before { transform: translate(5px, 5px); }
-    .btn-solid:hover::after  { transform: translate(10px, 10px); }
+    /* hover: button snaps down to neutral, layers spread further */
+    .btn-solid:hover {
+      transform: translate(0px, 0px);
+    }
+    .btn-solid:hover::before {
+      transform: translate(7px, 7px);
+    }
+    .btn-solid:hover::after {
+      transform: translate(14px, 14px);
+    }
+
     .btn-ghost {
       background: transparent;
       color: var(--black);
+      transition: background 0.15s ease;
     }
     .btn-ghost:hover { background: rgba(0,0,0,0.06); }
 
@@ -163,18 +192,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 24px;
+      gap: 32px;
       flex-wrap: wrap;
-      padding-bottom: 16px;
+      padding: 8px 20px 28px;
+      overflow: visible;
     }
     .hero-actions .btn-solid {
       padding: 14px 28px;
       font-size: 1rem;
-      border-radius: 10px;
-      margin-bottom: 14px;
     }
-    .hero-actions .btn-solid::before { border-radius: 10px; }
-    .hero-actions .btn-solid::after  { border-radius: 10px; }
     .search-bar {
       display: flex;
       align-items: center;
@@ -429,9 +455,7 @@
       margin-bottom: 24px;
     }
     .final-cta p { color: var(--muted); font-size: 1.1rem; max-width: 440px; margin: 0 auto 40px; line-height: 1.7; }
-    .final-cta .btn-solid { padding: 16px 36px; font-size: 1.05rem; border-radius: 10px; margin-bottom: 14px; }
-    .final-cta .btn-solid::before,
-    .final-cta .btn-solid::after { border-radius: 10px; }
+    .final-cta .btn-solid { padding: 16px 36px; font-size: 1.05rem; }
     .guarantee-note {
       margin-top: 20px;
       font-size: 0.84rem;
