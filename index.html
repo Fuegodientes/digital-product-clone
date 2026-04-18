@@ -85,15 +85,32 @@
       font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: transform 0.15s ease;
       border: var(--border);
       line-height: 1;
+      position: relative;
+      z-index: 1;
     }
     .btn-solid {
       background: var(--black);
       color: var(--white);
     }
-    .btn-solid:hover { background: #222; }
+    /* stacked-card layers */
+    .btn-solid::before,
+    .btn-solid::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius);
+      border: var(--border);
+      z-index: -1;
+      transition: transform 0.15s ease;
+    }
+    .btn-solid::before { background: #f0d000; transform: translate(4px, 4px); }
+    .btn-solid::after  { background: #c0392b; transform: translate(8px, 8px); }
+    .btn-solid:hover { transform: translate(-2px, -2px); }
+    .btn-solid:hover::before { transform: translate(6px, 6px); }
+    .btn-solid:hover::after  { transform: translate(12px, 12px); }
     .btn-ghost {
       background: transparent;
       color: var(--black);
@@ -144,14 +161,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 24px;
       flex-wrap: wrap;
+      padding-bottom: 16px;
     }
     .hero-actions .btn-solid {
       padding: 14px 28px;
       font-size: 1rem;
       border-radius: 10px;
+      margin-bottom: 14px;
     }
+    .hero-actions .btn-solid::before { border-radius: 10px; }
+    .hero-actions .btn-solid::after  { border-radius: 10px; }
     .search-bar {
       display: flex;
       align-items: center;
@@ -406,7 +427,9 @@
       margin-bottom: 24px;
     }
     .final-cta p { color: var(--muted); font-size: 1.1rem; max-width: 440px; margin: 0 auto 40px; line-height: 1.7; }
-    .final-cta .btn-solid { padding: 16px 36px; font-size: 1.05rem; border-radius: 10px; }
+    .final-cta .btn-solid { padding: 16px 36px; font-size: 1.05rem; border-radius: 10px; margin-bottom: 14px; }
+    .final-cta .btn-solid::before,
+    .final-cta .btn-solid::after { border-radius: 10px; }
     .guarantee-note {
       margin-top: 20px;
       font-size: 0.84rem;
