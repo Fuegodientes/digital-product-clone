@@ -95,9 +95,7 @@
       white-space: nowrap;
     }
 
-    /* ── Primary button: stacked-layers press-in effect ── */
     .btn-primary {
-      position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -106,30 +104,15 @@
       border-radius: 8px;
       font-weight: 700;
       cursor: pointer;
-      transition: transform 0.15s ease;
-      z-index: 2;
-      border: none;
-    }
-    .btn-primary::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: #e63b2e;
-      border-radius: 8px;
-      transform: translate(6px, 6px);
-      z-index: -1;
-    }
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: #f4d03f;
-      border-radius: 8px;
-      transform: translate(3px, 3px);
-      z-index: -1;
+      border: 1px solid #000;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      white-space: nowrap;
+      text-align: center;
     }
     .btn-primary:hover {
-      transform: translate(6px, 6px);
+      background: #222;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.18);
     }
 
     .btn-ghost {
