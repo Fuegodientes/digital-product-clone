@@ -95,50 +95,41 @@
       white-space: nowrap;
     }
 
-    /* ── Solid black button with Gumroad stacked-card hover ── */
-    .btn-solid {
-      background: var(--black);
-      color: var(--white);
+    /* ── Primary button: stacked-layers press-in effect ── */
+    .btn-primary {
       position: relative;
-      z-index: 1;
-      /* default: button already lifted off the layers */
-      transform: translate(-4px, -4px);
-      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      color: #fff;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+      z-index: 2;
+      border: none;
     }
-    /* yellow layer — always visible offset behind */
-    .btn-solid::before {
+    .btn-primary::after {
       content: '';
       position: absolute;
-      inset: -1px;
-      border-radius: inherit;
-      border: 1px solid var(--black);
-      background: #f5e642;
+      inset: 0;
+      background: #e63b2e;
+      border-radius: 8px;
+      transform: translate(6px, 6px);
       z-index: -1;
-      /* fixed in place regardless of button movement */
-      transform: translate(4px, 4px);
-      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    /* red layer — always visible, further behind */
-    .btn-solid::after {
+    .btn-primary::before {
       content: '';
       position: absolute;
-      inset: -1px;
-      border-radius: inherit;
-      border: 1px solid var(--black);
-      background: #c0392b;
-      z-index: -2;
-      transform: translate(8px, 8px);
-      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+      inset: 0;
+      background: #f4d03f;
+      border-radius: 8px;
+      transform: translate(3px, 3px);
+      z-index: -1;
     }
-    /* hover: button snaps down to neutral, layers spread further */
-    .btn-solid:hover {
-      transform: translate(0px, 0px);
-    }
-    .btn-solid:hover::before {
-      transform: translate(7px, 7px);
-    }
-    .btn-solid:hover::after {
-      transform: translate(14px, 14px);
+    .btn-primary:hover {
+      transform: translate(6px, 6px);
     }
 
     .btn-ghost {
@@ -197,7 +188,7 @@
       padding: 8px 20px 28px;
       overflow: visible;
     }
-    .hero-actions .btn-solid {
+    .hero-actions .btn-primary {
       padding: 14px 28px;
       font-size: 1rem;
     }
@@ -445,7 +436,7 @@
     .marquee-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--pink); flex-shrink: 0; }
 
     /* ─── FINAL CTA ─── */
-    .final-cta { border-top: var(--border); text-align: center; padding: 120px 32px; }
+    .final-cta { border-top: var(--border); text-align: center; padding: 120px 32px; overflow: visible; }
     .final-cta h2 {
       font-family: 'DM Serif Display', serif;
       font-size: clamp(2.5rem, 6vw, 5rem);
@@ -455,7 +446,7 @@
       margin-bottom: 24px;
     }
     .final-cta p { color: var(--muted); font-size: 1.1rem; max-width: 440px; margin: 0 auto 40px; line-height: 1.7; }
-    .final-cta .btn-solid { padding: 16px 36px; font-size: 1.05rem; }
+    .final-cta .btn-primary { padding: 16px 36px; font-size: 1.05rem; }
     .guarantee-note {
       margin-top: 20px;
       font-size: 0.84rem;
@@ -539,7 +530,7 @@
     </ul>
     <div class="nav-ctas">
       <a href="#" class="btn btn-ghost">Log in</a>
-      <a href="#" class="btn btn-solid">Start selling</a>
+      <a href="#" class="btn-primary">Start selling</a>
     </div>
   </div>
 </nav>
@@ -550,7 +541,7 @@
   <h1>Go from<br><em>idea</em> to income.</h1>
   <p>FlowOS is the simplest way for freelancers and founders to sell digital products, courses, and memberships — and actually get paid.</p>
   <div class="hero-actions">
-    <a href="#" class="btn btn-solid">Start selling for free</a>
+    <a href="#" class="btn-primary">Start selling for free</a>
     <div class="search-bar">
       <input type="text" placeholder="Search products..." aria-label="Search products" />
       <button type="button">Search</button>
@@ -748,7 +739,7 @@
     <div class="reveal">
       <h2>Your first sale<br>is closer than<br><em style="font-style:italic;color:var(--muted)">you think.</em></h2>
       <p>Free to start. No monthly fees. We only make money when you do — 10% on each sale, nothing more.</p>
-      <a href="#" class="btn btn-solid">Create your store — it's free</a>
+      <a href="#" class="btn-primary">Create your store — it's free</a>
       <div class="guarantee-note">No credit card required &nbsp;·&nbsp; Cancel any time &nbsp;·&nbsp; 30-day refund guarantee</div>
     </div>
   </div>
