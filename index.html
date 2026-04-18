@@ -78,6 +78,7 @@
     .btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
       padding: 10px 20px;
       border-radius: var(--radius);
@@ -85,32 +86,33 @@
       font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
-      transition: transform 0.15s ease;
+      transition: none;
       border: var(--border);
       line-height: 1;
       position: relative;
       z-index: 1;
+      text-align: center;
     }
     .btn-solid {
       background: var(--black);
       color: var(--white);
     }
-    /* stacked-card layers */
+    /* stacked-card layers — hidden behind button by default, reveal on hover */
     .btn-solid::before,
     .btn-solid::after {
       content: '';
       position: absolute;
       inset: 0;
-      border-radius: var(--radius);
+      border-radius: inherit;
       border: var(--border);
       z-index: -1;
       transition: transform 0.15s ease;
+      transform: translate(0, 0);
     }
-    .btn-solid::before { background: #f0d000; transform: translate(4px, 4px); }
-    .btn-solid::after  { background: #c0392b; transform: translate(8px, 8px); }
-    .btn-solid:hover { transform: translate(-2px, -2px); }
-    .btn-solid:hover::before { transform: translate(6px, 6px); }
-    .btn-solid:hover::after  { transform: translate(12px, 12px); }
+    .btn-solid::before { background: #f0d000; }
+    .btn-solid::after  { background: #c0392b; }
+    .btn-solid:hover::before { transform: translate(5px, 5px); }
+    .btn-solid:hover::after  { transform: translate(10px, 10px); }
     .btn-ghost {
       background: transparent;
       color: var(--black);
