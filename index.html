@@ -445,32 +445,156 @@
     .t-what { font-size: 0.82rem; color: var(--muted); }
 
     /* ─── HOW IT WORKS ─── */
-    .how-section { border-top: var(--border); }
-    .steps-list { display: flex; flex-direction: column; gap: 0; max-width: 760px; }
-    .step-item {
+    /* ─── HOW IT WORKS ─── */
+    .how-section {
+      background: var(--black);
+      border-top: var(--border);
+      padding: 96px 32px;
+    }
+    .how-section .section-eyebrow { color: rgba(255,255,255,0.4); }
+    .how-section .section-title { color: var(--white); }
+    .how-cards {
       display: grid;
-      grid-template-columns: 56px 1fr;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 56px;
+    }
+    .how-card {
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 36px 32px 40px;
+      display: flex;
+      flex-direction: column;
       gap: 28px;
-      align-items: start;
-      padding: 36px 0;
-      border-bottom: 1px solid rgba(0,0,0,0.12);
+      position: relative;
+      overflow: hidden;
     }
-    .step-item:last-child { border-bottom: none; }
-    .step-num {
+    .how-card-1 { background: var(--pink); border-color: #000; }
+    .how-card-2 { background: #f4d03f; border-color: #000; }
+    .how-card-3 { background: #d0f0ff; border-color: #000; }
+    .how-card-num {
       font-family: 'DM Serif Display', serif;
-      font-size: 2.5rem;
-      line-height: 1;
+      font-size: 1rem;
+      font-weight: 400;
+      opacity: 0.45;
+      letter-spacing: 1px;
+    }
+    /* ── CSS illustration panels ── */
+    .how-visual {
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 12px;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Card 1: upload UI mockup */
+    .vis-upload {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .vis-upload-box {
+      width: 80px; height: 56px;
+      border: 2px dashed rgba(0,0,0,0.3);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .vis-upload-box svg { width: 22px; height: 22px; stroke: rgba(0,0,0,0.45); stroke-width: 1.75; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .vis-upload-label {
+      font-size: 0.7rem; font-weight: 600; color: rgba(0,0,0,0.4);
+      letter-spacing: 0.5px;
+    }
+    .vis-upload-bar {
+      width: 80px; height: 5px;
+      background: rgba(0,0,0,0.1);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .vis-upload-bar-fill {
+      width: 60%;
+      height: 100%;
+      background: rgba(0,0,0,0.35);
+      border-radius: 99px;
+    }
+    /* Card 2: price tag mockup */
+    .vis-price {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .vis-price-tag {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3rem;
       letter-spacing: -2px;
-      color: #ccc;
+      color: rgba(0,0,0,0.75);
+      line-height: 1;
     }
-    .step-content h3 {
+    .vis-price-sub {
+      font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      color: rgba(0,0,0,0.35);
+    }
+    .vis-price-pills {
+      display: flex; gap: 6px; margin-top: 4px;
+    }
+    .vis-pill {
+      font-size: 0.65rem; font-weight: 700;
+      padding: 3px 10px;
+      border: 1px solid rgba(0,0,0,0.2);
+      border-radius: 99px;
+      color: rgba(0,0,0,0.45);
+    }
+    .vis-pill.active { background: rgba(0,0,0,0.12); color: rgba(0,0,0,0.7); border-color: transparent; }
+    /* Card 3: share / notification mockup */
+    .vis-share {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 80%;
+    }
+    .vis-share-link {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.7rem; font-weight: 600;
+      color: rgba(0,0,0,0.5);
+    }
+    .vis-share-link svg { width: 13px; height: 13px; stroke: rgba(0,0,0,0.35); stroke-width: 2; fill: none; flex-shrink: 0; }
+    .vis-notif {
+      display: flex; align-items: center; gap: 8px;
+      background: #000;
+      border-radius: 8px;
+      padding: 8px 12px;
+      animation: slideIn 2.5s ease infinite;
+    }
+    @keyframes slideIn {
+      0%, 100% { transform: translateY(4px); opacity: 0.7; }
+      40%, 60% { transform: translateY(0); opacity: 1; }
+    }
+    .vis-notif-dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; flex-shrink: 0; }
+    .vis-notif-text { font-size: 0.68rem; font-weight: 600; color: #fff; }
+    /* card text */
+    .how-card-body {}
+    .how-card-body h3 {
       font-family: 'DM Serif Display', serif;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 400;
       letter-spacing: -0.5px;
       margin-bottom: 8px;
+      color: var(--black);
     }
-    .step-content p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; }
+    .how-card-body p { font-size: 0.92rem; color: rgba(0,0,0,0.55); line-height: 1.7; }
+    @media (max-width: 900px) {
+      .how-cards { grid-template-columns: 1fr; }
+    }
 
     /* ─── MARQUEE ─── */
     .marquee-section { border-top: var(--border); border-bottom: var(--border); overflow: hidden; padding: 20px 0; background: var(--black); }
@@ -774,34 +898,78 @@
 </section>
 
 <!-- ─── HOW IT WORKS ─── -->
-<section class="section how-section" id="how">
+<section class="how-section" id="how">
   <div class="container">
     <div class="reveal">
       <div class="section-eyebrow">How it works</div>
       <h2 class="section-title">Three steps to your<br>first sale.</h2>
     </div>
-    <div class="steps-list reveal">
-      <div class="step-item">
-        <div class="step-num">01</div>
-        <div class="step-content">
+    <div class="how-cards">
+
+      <!-- Step 1 -->
+      <div class="how-card how-card-1 reveal">
+        <div class="how-card-num">01 — Create</div>
+        <div class="how-visual">
+          <div class="vis-upload">
+            <div class="vis-upload-box">
+              <svg viewBox="0 0 24 24"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+            </div>
+            <div class="vis-upload-label">Drop your file here</div>
+            <div class="vis-upload-bar"><div class="vis-upload-bar-fill"></div></div>
+          </div>
+        </div>
+        <div class="how-card-body">
           <h3>Create your product</h3>
-          <p>Upload a file, write a description, or paste a link to your course. It takes less than five minutes to go from idea to published.</p>
+          <p>Upload a file, record a course, or paste a link. Your page is live in under five minutes — no code, no design skills needed.</p>
         </div>
       </div>
-      <div class="step-item">
-        <div class="step-num">02</div>
-        <div class="step-content">
+
+      <!-- Step 2 -->
+      <div class="how-card how-card-2 reveal">
+        <div class="how-card-num">02 — Price</div>
+        <div class="how-visual">
+          <div class="vis-price">
+            <div class="vis-price-tag">$49</div>
+            <div class="vis-price-sub">or name your price</div>
+            <div class="vis-price-pills">
+              <span class="vis-pill active">$29</span>
+              <span class="vis-pill active">$49</span>
+              <span class="vis-pill">$99</span>
+              <span class="vis-pill">Free</span>
+            </div>
+          </div>
+        </div>
+        <div class="how-card-body">
           <h3>Set your price</h3>
-          <p>Name your price, offer a pay-what-you-want option, or make it free to build your list. You're always in control.</p>
+          <p>Name a fixed price, offer pay-what-you-want, or give it away free to grow your list. You're in control every step of the way.</p>
         </div>
       </div>
-      <div class="step-item">
-        <div class="step-num">03</div>
-        <div class="step-content">
+
+      <!-- Step 3 -->
+      <div class="how-card how-card-3 reveal">
+        <div class="how-card-num">03 — Earn</div>
+        <div class="how-visual">
+          <div class="vis-share">
+            <div class="vis-share-link">
+              <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              flowos.co/your-store
+            </div>
+            <div class="vis-notif">
+              <span class="vis-notif-dot"></span>
+              <span class="vis-notif-text">New sale — $49.00 💸</span>
+            </div>
+            <div class="vis-notif" style="animation-delay:1.2s; background:#1a1a1a;">
+              <span class="vis-notif-dot"></span>
+              <span class="vis-notif-text">Payout sent — $44.10</span>
+            </div>
+          </div>
+        </div>
+        <div class="how-card-body">
           <h3>Share and get paid</h3>
-          <p>Copy your link, share it anywhere — social, email, your website — and watch the sales come in. We pay out directly to your bank.</p>
+          <p>Copy your link, drop it anywhere. Sales notifications hit your phone. Payouts land in your bank automatically.</p>
         </div>
       </div>
+
     </div>
   </div>
 </section>
