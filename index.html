@@ -297,24 +297,96 @@
     }
     .feature-card:hover { transform: translateY(-3px); }
     .feature-illus {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
       border: var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 28px;
-      font-size: 1.6rem;
-      position: relative;
-      overflow: hidden;
+      margin-bottom: 24px;
     }
+    .feature-illus svg { width: 24px; height: 24px; stroke: var(--black); stroke-width: 1.75; fill: none; stroke-linecap: round; stroke-linejoin: round; }
     .illus-1 { background: #ffe0f9; }
     .illus-2 { background: #d0f0ff; }
     .illus-3 { background: #d4f4d4; }
     .illus-4 { background: #fff3cc; }
     .illus-5 { background: #ffd6cc; }
     .illus-6 { background: #e8d4ff; }
+
+    /* ─── FAQ ─── */
+    .faq-section { border-top: var(--border); background: var(--white); }
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .faq-list { display: flex; flex-direction: column; }
+    .faq-item { border-bottom: var(--border); }
+    .faq-item:first-child { border-top: var(--border); }
+    .faq-btn {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 22px 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--black);
+      text-align: left;
+    }
+    .faq-btn:hover { opacity: 0.7; }
+    .faq-icon {
+      width: 28px;
+      height: 28px;
+      border: var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+    .faq-icon svg { width: 14px; height: 14px; stroke: var(--black); stroke-width: 2; fill: none; stroke-linecap: round; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.3s ease;
+    }
+    .faq-item.open .faq-body { grid-template-rows: 1fr; }
+    .faq-body-inner { overflow: hidden; }
+    .faq-body p {
+      padding-bottom: 22px;
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .faq-aside { position: sticky; top: 100px; }
+    .faq-aside-card {
+      background: var(--cream);
+      border: var(--border);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+    }
+    .faq-aside-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .faq-aside-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 24px; }
+    @media (max-width: 900px) {
+      .faq-grid { grid-template-columns: 1fr; }
+      .faq-aside { position: static; }
+    }
     .feature-card h3 {
       font-family: 'DM Serif Display', serif;
       font-size: 1.5rem;
@@ -595,32 +667,44 @@
     </div>
     <div class="features-grid">
       <div class="feature-card reveal">
-        <div class="feature-illus illus-1">📦</div>
+        <div class="feature-illus illus-1">
+          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        </div>
         <h3>Instant product pages</h3>
         <p>Build a beautiful product page in minutes. Embed video, add a description, set your price, and publish — no coding or design skills needed.</p>
       </div>
       <div class="feature-card reveal">
-        <div class="feature-illus illus-2">💳</div>
+        <div class="feature-illus illus-2">
+          <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </div>
         <h3>Payments without the pain</h3>
         <p>Accept credit cards, PayPal, and more. Funds hit your account within days. We handle taxes, refunds, and compliance so you don't have to.</p>
       </div>
       <div class="feature-card reveal">
-        <div class="feature-illus illus-3">📧</div>
+        <div class="feature-illus illus-3">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
         <h3>Built-in email marketing</h3>
         <p>Message your customers directly. Send updates, launch announcements, and newsletters — all from the same place you run your business.</p>
       </div>
       <div class="feature-card reveal">
-        <div class="feature-illus illus-4">📊</div>
+        <div class="feature-illus illus-4">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
         <h3>Real-time analytics</h3>
         <p>See exactly what's selling, where your customers come from, and how much you've earned — updated in real time, no spreadsheet required.</p>
       </div>
       <div class="feature-card reveal">
-        <div class="feature-illus illus-5">🔁</div>
+        <div class="feature-illus illus-5">
+          <svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+        </div>
         <h3>Subscriptions & memberships</h3>
         <p>Turn buyers into subscribers. Charge weekly, monthly, or yearly. Build recurring income that doesn't depend on a new launch every month.</p>
       </div>
       <div class="feature-card reveal">
-        <div class="feature-illus illus-6">🌐</div>
+        <div class="feature-illus illus-6">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
         <h3>Your own storefront</h3>
         <p>Get a clean profile page that lists everything you sell. Share one link — your personal store is ready to go from day one.</p>
       </div>
@@ -722,6 +806,91 @@
   </div>
 </section>
 
+<!-- ─── FAQ ─── -->
+<section class="section faq-section" id="faq">
+  <div class="container">
+    <div class="faq-grid">
+      <div>
+        <div class="reveal">
+          <div class="section-eyebrow">FAQ</div>
+          <h2 class="section-title">Questions,<br>answered.</h2>
+        </div>
+        <div class="faq-list reveal">
+
+          <div class="faq-item">
+            <button class="faq-btn">
+              Is FlowOS really free to start?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-body"><div class="faq-body-inner">
+              <p>Yes — creating an account and publishing your first product costs nothing. We charge a 10% fee only when you make a sale. No monthly plan, no setup fee, no hidden costs.</p>
+            </div></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-btn">
+              What can I sell on FlowOS?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-body"><div class="faq-body-inner">
+              <p>Digital downloads (PDFs, templates, presets, code), online courses, memberships, coaching sessions, and more. If it can be delivered digitally, you can sell it on FlowOS.</p>
+            </div></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-btn">
+              How and when do I get paid?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-body"><div class="faq-body-inner">
+              <p>Payouts go directly to your bank account or PayPal. You can request a payout any time once your balance exceeds $10. Most transfers arrive within 2–5 business days.</p>
+            </div></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-btn">
+              Do I need any technical skills?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-body"><div class="faq-body-inner">
+              <p>None at all. If you can write an email and drag a file, you can publish on FlowOS. Everything — your store, checkout, file delivery, and emails — is handled for you automatically.</p>
+            </div></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-btn">
+              Can I use my own domain?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-body"><div class="faq-body-inner">
+              <p>Yes. You can connect a custom domain to your FlowOS storefront from your account settings. Your store will live at your domain, with FlowOS running invisibly in the background.</p>
+            </div></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-btn">
+              What's your refund policy?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-body"><div class="faq-body-inner">
+              <p>As a seller, you control your own refund policy. FlowOS offers a platform-level 30-day refund guarantee for buyers if a product is not as described. Disputes are handled by our support team.</p>
+            </div></div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="faq-aside reveal">
+        <div class="faq-aside-card">
+          <h3>Still have questions?</h3>
+          <p>Our team typically responds within a few hours on weekdays. We're real humans — no bots, no ticket queues.</p>
+          <a href="mailto:hello@flowos.co" class="btn-primary" style="padding:12px 24px;font-size:0.9rem;">Email us directly</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ─── FINAL CTA ─── -->
 <section class="final-cta" id="pricing">
   <div class="container">
@@ -764,6 +933,16 @@
     });
   }, { threshold: 0.1 });
   els.forEach(el => io.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
 
   // Animated counter for the big number
   function animateCounter(el, target, prefix = '', suffix = '') {
