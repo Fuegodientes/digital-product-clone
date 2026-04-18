@@ -333,15 +333,18 @@
     .pcard-3 .pcard-thumb { background: #d4f4d4; }
     .pcard-4 .pcard-thumb { background: #d0f0ff; }
     .pcard-5 .pcard-thumb { background: #ffd6cc; }
-    /* hover: pause float and nudge */
     .pcard {
       will-change: transform;
-      transform-style: preserve-3d;
       cursor: default;
+      transition: opacity 0.35s ease, filter 0.35s ease, box-shadow 0.35s ease;
     }
     .pcard.is-hovered {
       z-index: 10;
-      box-shadow: 0 24px 48px rgba(0,0,0,0.13);
+      box-shadow: 0 28px 52px rgba(0,0,0,0.15);
+    }
+    .pcard.dimmed {
+      opacity: 0.45;
+      filter: blur(1px);
     }
 
     /* ─── RESPONSIVE HERO ─── */
@@ -1311,60 +1314,61 @@
   }, { threshold: 0.1 });
   els.forEach(el => io.observe(el));
 
-  // ── Card tilt on mouse move ──
-  document.querySelectorAll('.pcard').forEach(card => {
-    let raf = null;
-    let isOver = false;
-    let targetRx = 0, targetRy = 0, targetTy = 0;
-    let currentRx = 0, currentRy = 0, currentTy = 0;
+  // ── Card separation on hover ──
+  const cards = document.querySelectorAll('.pcard');
+  const lerp = (a, b, t) => a + (b - a) * t;
 
-    function lerp(a, b, t) { return a + (b - a) * t; }
+  cards.forEach(card => {
+    let raf = null;
+    let active = false;
+    // targets
+    let tx = 0, ty = 0, sc = 1;
+    // current interpolated values
+    let cx = 0, cy = 0, cs = 1;
 
     function tick() {
-      currentRx = lerp(currentRx, targetRx, 0.09);
-      currentRy = lerp(currentRy, targetRy, 0.09);
-      currentTy = lerp(currentTy, targetTy, 0.09);
+      cx = lerp(cx, tx, 0.07);
+      cy = lerp(cy, ty, 0.07);
+      cs = lerp(cs, sc, 0.07);
 
-      card.style.transform = `translateY(${currentTy}px) rotateX(${currentRx}deg) rotateY(${currentRy}deg) scale(${isOver ? 1.04 : 1})`;
+      card.style.transform = `translate(${cx}px, ${cy}px) scale(${cs})`;
 
-      if (isOver || Math.abs(currentRx) > 0.05 || Math.abs(currentRy) > 0.05 || Math.abs(currentTy) > 0.05) {
+      const settling = Math.abs(cx - tx) > 0.05 || Math.abs(cy - ty) > 0.05 || Math.abs(cs - sc) > 0.002;
+      if (active || settling) {
         raf = requestAnimationFrame(tick);
       } else {
+        // fully settled back — hand control to CSS animation
         card.style.transform = '';
+        card.style.animationPlayState = '';
         raf = null;
       }
     }
 
     card.addEventListener('mouseenter', () => {
-      isOver = true;
+      active = true;
       card.classList.add('is-hovered');
       card.style.animationPlayState = 'paused';
-      targetTy = -14;
+      sc = 1.07;
+      ty = -20;
+      // dim every other card
+      cards.forEach(c => { if (c !== card) c.classList.add('dimmed'); });
       if (!raf) raf = requestAnimationFrame(tick);
     });
 
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width  - 0.5;  // -0.5 → 0.5
-      const y = (e.clientY - rect.top)  / rect.height - 0.5;
-      targetRy =  x * 18;
-      targetRx = -y * 14;
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      // offset from card center, scaled to ±12px horizontal, ±8px vertical
+      tx = ((e.clientX - (r.left + r.width  / 2)) / r.width)  * 24;
+      ty = -20 + ((e.clientY - (r.top  + r.height / 2)) / r.height) * 14;
     });
 
     card.addEventListener('mouseleave', () => {
-      isOver = false;
+      active = false;
       card.classList.remove('is-hovered');
-      targetRx = 0;
-      targetRy = 0;
-      targetTy = 0;
-      // resume float after lerp settles
-      setTimeout(() => {
-        if (!isOver) {
-          card.style.animationPlayState = '';
-          card.style.transform = '';
-          raf = null;
-        }
-      }, 600);
+      // return targets to rest
+      tx = 0; ty = 0; sc = 1;
+      cards.forEach(c => c.classList.remove('dimmed'));
+      if (!raf) raf = requestAnimationFrame(tick);
     });
   });
 
